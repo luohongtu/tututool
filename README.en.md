@@ -1,15 +1,15 @@
 # tututool
 
-### 一个轻量级的Java工具包集合
+### A lightweight Java tool collection
 
-#### 项目介绍
-这是一个为Java开发者提供的多功能工具包集合，专注于解决常见的开发痛点，提供高效、简洁的解决方案。目前已包含异常处理模块，后续将逐步扩展其他工具模块。
+#### Project Description
+This is a versatile tool collection for Java developers, focusing on solving common development pain points with efficient and concise solutions. Currently includes an exception handling module, with additional modules to be added in the future.
 
-**核心功能：**
-- 异常处理模块：基于桥接设计模式实现的灵活异常处理框架
+**Core Features:**
+- Exception Handling Module: A flexible exception handling framework based on the Bridge design pattern
 
-#### 软件架构
-##### 异常处理模块架构
+#### Software Architecture
+##### Exception Handling Module Architecture
 
 ```
 +-----------------+        +------------------------+        +----------------------+
@@ -25,7 +25,7 @@
 +---------------------+              |              |                       |
                                      |              |                       |
                           +----------+--+ +---------+--------+        +----+----------------+
-                          | AnomalyExceptionFactory | | DistributedAnomalyExceptionFactory | | ... 自定义异常工厂 ... |
+                          | AnomalyExceptionFactory | | DistributedAnomalyExceptionFactory | | ... custom exception factories ... |
                           +--------------------------+ +-----------------------------------+ +-----------------------+
                                      |                                      |
                                      v                                      v
@@ -34,15 +34,15 @@
                           +---------------------+              +------------------------------+
 ```
 
-**架构特点：**
-- **桥接设计模式**：将异常的抽象与实现分离，使它们可以独立变化
-- **可扩展架构**：允许轻松添加新的异常类型和异常工厂
-- **解耦合**：异常的创建与使用分离，提高了代码的灵活性和可维护性
+**Architecture Features:**
+- **Bridge Design Pattern**: Separates the abstraction of exceptions from their implementation, allowing them to vary independently
+- **Extensible Architecture**: Easily add new exception types and exception factories
+- **Decoupled Design**: Separates exception creation from usage, improving code flexibility and maintainability
 
-#### 快速开始
+#### Quick Start
 
-##### 依赖导入
-目前项目处于开发阶段，建议直接克隆项目到本地，使用Maven进行构建。
+##### Dependencies
+Currently, the project is in development phase. It is recommended to clone the project locally and build using Maven.
 
 ```bash
 git clone https://github.com/your-repo/tututool.git
@@ -50,7 +50,7 @@ cd tututool
 mvn clean install
 ```
 
-在需要使用异常处理模块的项目中，添加以下依赖：
+Add the following dependency to your project's pom.xml to use the exception handling module:
 
 ```xml
 <dependency>
@@ -60,17 +60,17 @@ mvn clean install
 </dependency>
 ```
 
-##### 异常处理模块使用示例
+##### Usage Example for Exception Handling Module
 
-**基本使用方式**：
+**Basic Usage:**
 
-1. 创建异常状态信息类
+1. Create an exception state class
 
 ```java
 public enum DemoException implements AnomalyState {
-    PARAM_ERROR("400", "参数错误"),
-    DATA_NOT_FOUND("404", "数据不存在"),
-    SYSTEM_ERROR("500", "系统内部错误");
+    PARAM_ERROR("400", "Parameter error"),
+    DATA_NOT_FOUND("404", "Data not found"),
+    SYSTEM_ERROR("500", "Internal system error");
 
     private final String state;
     private final String message;
@@ -92,43 +92,43 @@ public enum DemoException implements AnomalyState {
 }
 ```
 
-2. 注册异常工厂
+2. Register exception factories
 
 ```java
-// 注册自定义异常工厂
+// Register custom exception factory
 AnomalyBridge.registerFactory(new AnomalyExceptionFactory<>());
 
-// 注册分布式异常工厂
+// Register distributed exception factory
 AnomalyBridge.registerFactory(new DistributedAnomalyExceptionFactory<>());
 
-// 注册默认运行时异常工厂
+// Register default runtime exception factory
 AnomalyBridge.registerFactory(new RuntimeExceptionFactory<>());
 ```
 
-3. 抛出异常
+3. Throw exceptions
 
 ```java
-// 检查参数，如果为null则抛出异常
+// Check parameter and throw exception if null
 if (param == null) {
     throw AnomalyBridge.exception(DemoException.PARAM_ERROR);
 }
 ```
 
-**注意事项**：
-- 必须先注册至少一个异常工厂，否则默认将使用RuntimeExceptionFactory
-- 可以注册多个异常工厂，系统将按注册顺序进行查找匹配
-- 异常状态类可以是任何实现了AnomalyState接口的类或枚举
+**Notes:**
+- You must register at least one exception factory. By default, RuntimeExceptionFactory will be used if no factories are registered
+- Multiple exception factories can be registered, and the system will search in registration order
+- The exception state can be any class that implements the AnomalyState interface
 
-#### 参与贡献
+#### Contribution
 
-1. Fork 本仓库
-2. 新建 Feat_xxx 分支
-3. 提交代码
-4. 新建 Pull Request
+1. Fork this repository
+2. Create a Feat_xxx branch
+3. Commit your code
+4. Create Pull Request
 
-#### 关于作者
-- **Author**：foolish-bird
-- **Email**：your-email@example.com
+#### About the Author
+- **Author**: foolish-bird
+- **Email**: your-email@example.com
 
-#### 许可证
-本项目采用MIT许可证，详见[LICENSE](LICENSE)文件。
+#### License
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
